@@ -5,9 +5,13 @@ require 'spec_helper'
 				visit '/static_pages/home'
 				page.should have_selector('h1', :text => 'MiniTweet')
 		end
-		it "should have the title 'MiniTweet'" do 
+		it "should have the base title" do 
 			visit '/static_pages/home'
-			page.should have_selector('title', :text => "MiniTweet VT | Home")
+			page.should have_selector('title', :text => "MiniTweet VT")
+		end
+		it "should not have a custom page title" do 
+			visit '/static_pages/home'
+			page.should_not have_selector('title', :text => '| Home')
 		end
 	end
 
@@ -16,9 +20,13 @@ require 'spec_helper'
 			visit '/static_pages/help' 
 			page.should have_selector('h1', :text => 'Soporte')
 		end
-		it "should have the title 'Soporte'" do 
+		it "should have the base title" do 
 			visit '/static_pages/help'
-			page.should have_selector('title', :text => "MiniTweet VT | Soporte")
+			page.should have_selector('title', :text => "MiniTweet VT")
+		end
+		it "should not have a custom page title" do 
+			visit '/static_pages/help'
+			page.should_not have_selector('title', :text => '| Soporte')
 		end
 	end
 
@@ -27,9 +35,13 @@ require 'spec_helper'
 			visit '/static_pages/about' 
 			page.should have_selector('h1', :text => 'Sobre VT')
 		end
-		it "should have the title 'Sobre VT'" do 
+		it "should have the base title" do 
 			visit '/static_pages/about'
-			page.should have_selector('title', :text => "MiniTweet VT | Sobre VT")
+			page.should have_selector('title', :text => "MiniTweet VT")
+		end
+		it "should not have a custom page title" do 
+			visit '/static_pages/about'
+			page.should_not have_selector('title', :text => '| Sobre VT')
 		end
 	end
 end
