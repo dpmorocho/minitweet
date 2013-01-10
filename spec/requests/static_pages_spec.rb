@@ -1,35 +1,32 @@
 require 'spec_helper' 
 	describe "Static pages" do
+		
+		subject { page }
+		
 		describe "Home" do
-			it "should have the h1 'MiniTweet'" do
-				visit '/static_pages/home'
-				page.should have_selector('h1', :text => 'MiniTweet')
+			before { visit root_path }
+			it { should have_selector('h1', text: 'MiniTweet') }
+			it { should have_selector('title', text: full_title('')) }
+			it { should_not have_selector 'title', text: '| Home' }
 		end
-		it "should have the title 'MiniTweet'" do 
-			visit '/static_pages/home'
-			page.should have_selector('title', :text => "MiniTweet VT | Home")
-		end
-	end
+	
 
-	describe "Help" do
-		it "should have the h1 'Soporte'" do 
-			visit '/static_pages/help' 
-			page.should have_selector('h1', :text => 'Soporte')
+		describe "Help" do
+			before { visit help_path }
+			it { should have_selector('h1', text: 'Soporte') }
+			it { should have_selector('title', text: full_title('')) }
 		end
-		it "should have the title 'Soporte'" do 
-			visit '/static_pages/help'
-			page.should have_selector('title', :text => "MiniTweet VT | Soporte")
-		end
+		
+
+	describe "Contact" do
+		before { visit contact_path }
+		it { should have_selector('h1', text: 'Contactos') }
+		it { should have_selector('title', text: full_title('')) }
 	end
 
 	describe "About" do
-		it "should have the h1 'Sobre VT'" do 
-			visit '/static_pages/about' 
-			page.should have_selector('h1', :text => 'Sobre VT')
-		end
-		it "should have the title 'Sobre VT'" do 
-			visit '/static_pages/about'
-			page.should have_selector('title', :text => "MiniTweet VT | Sobre VT")
-		end
+		before { visit about_path }
+		it { should have_selector('h1', text: 'Sobre VT') }
+		it { should have_selector('title', text: full_title('')) }
 	end
 end
