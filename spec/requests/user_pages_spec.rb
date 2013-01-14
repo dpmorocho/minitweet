@@ -22,6 +22,14 @@ require 'spec_helper'
 			it "should create a user" do
 				expect { click_button submit }.to change(User, :count).by(1)
 			end
+
+			describe "after saving user" do
+				before { click_button submit }
+				let(:user) { User.find_by_email('dpmorocho@gmail.com') }
+				it { should have_selector('title', text: user.name) }
+				it { should have_selector('div.alert.alert-success', text: 'Bienvenido') }
+				it { should have_link('Salir') }
+			end
 		end
 
 		it { should have_selector('h1', text: 'Registro') }
@@ -32,5 +40,19 @@ require 'spec_helper'
 		before { visit user_path(user) }
 		it { should have_selector('h1', text: user.name) }
 		it { should have_selector('title', text: user.name) }
+	end
+
+	describe "edit" do
+		let(:user) { FactoryGirl.create(:user) }
+		before { visit edit_user_path(user) }
+		describe "page" do
+			it { should have_selector('h1', text: "Actualizar Perfil") }
+			it { should have_selector('title', text: "Editar Usuario") }
+			it { should have_link('change', href: 'http://gravatar.com/emails') }
+		end
+		describe "with invalid information" do
+			before { click_button "Guardar Cambios" }
+			it { should have_content('error') }
+		end
 	end
 end
