@@ -7,6 +7,7 @@ class MicropostsController < ApplicationController
       		flash[:success] = "Tweet enviado!"
 			redirect_to root_path
 		else
+			@feed_items = []
 			render 'static pages/home'
 		end
 	end
