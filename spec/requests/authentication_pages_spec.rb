@@ -27,7 +27,7 @@ describe "Authentication" do
     end
 
     describe "with valid information" do
-      let(:user) { FactoryGirl.create(:user) }
+      #let(:user) { FactoryGirl.create(:user) }
       before { sign_in user }
 
       it { should have_selector('title', text: user.name) }
@@ -56,6 +56,18 @@ describe "Authentication" do
           fill_in "Password", with: user.password
           click_button "Ingresar"
         end
+
+      describe "in the Users controller" do
+        describe "visiting the edit page" do
+          before { visit edit_user_path(user) }
+          it { should have_selector('title', text: 'Ingresar') }
+        end
+        
+        describe "submitting to the update action" do
+          before { put user_path(user) }
+          specify { response.should redirect_to(signin_path) }
+        end
+      end
 
         describe "after signing in" do
           it "should render the desired protected page" do
@@ -136,7 +148,7 @@ describe "Authentication" do
 
     describe "as wrong user" do
       let(:user) { FactoryGirl.create(:user) }
-      let(:wrong_user) { FactoryGirl.create(:user, email: "wrong@example.com") }
+      let(:wrong_user) { FactoryGirl.create(:user, email: "error@ejem.com") }
       before { sign_in user }
 
       describe "visiting Users#edit page" do
