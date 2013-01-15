@@ -3,4 +3,7 @@
 	<span class="timestamp">
 		Publicado <%= time_ago_in_words(micropost.created_at) %> atras.
 	</span>
+	<% if current_user?(micropost.user) %>
+		<%= link_to "borrar", micropost, method: :delete, confirm: "Estas seguro?", title: micropost.content %>
+	<% end %>		
 </li>
